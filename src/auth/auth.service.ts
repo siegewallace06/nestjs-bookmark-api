@@ -5,4 +5,24 @@ import { Injectable } from "@nestjs/common";
 // system that Nest provides
 @Injectable()
 // AuthService Class
-export class AuthService {}
+export class AuthService {
+    // Test function
+    test() {
+        console.log("Testing Auth Service");
+    }
+
+    // Signup function
+    signup() {
+        return {
+            msg: "You have signed up successfully",
+        }
+    }
+
+    // signin function
+    signin() {
+        return {
+            msg: "You have signed in successfully",
+        }
+    }
+
+}

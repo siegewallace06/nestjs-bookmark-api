@@ -1,8 +1,8 @@
-import { Controller } from "@nestjs/common";
+import { Controller, Post } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 
 // Decorators to tell Nest that this is a controller
-@Controller()
+@Controller('auth')
 // AuthController Class
 export class AuthController {
     // Constructor with auth service as a dependency
@@ -11,4 +11,16 @@ export class AuthController {
         // this.authService.test();
     }
 
+    // signup function
+    @Post("signup")
+    signup() {
+        return this.authService.signup();
     }
+
+    // signin function
+    @Post("signin")
+    signin() {
+        return this.authService.signin();
+    }
+
+}

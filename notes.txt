@@ -67,9 +67,17 @@ Controllers
 Docs:
 https://docs.nestjs.com/controllers
 
-Responsible to handle incoming request and returning responses to client
+Responsible to handle incoming request and returning responses to client.
+Nest JS uses Express under the hood and if you see the response's header,
+you can see it is powered by Express.
 
-For creating the logic, it will be separated to Controllers and Providers
+The response will be automatically change the data type based on our return from
+the service
+
+For creating the logic, it will be separated to Controllers and Providers.
+
+You should always keep your controller clean by only defining the route here
+and keep the business logic separated
 
 1. Auth Controllers
 For the first time it's better to learn to create it on your own not by generator.
@@ -78,6 +86,20 @@ The Auth Controllers will be stored in auth folder. Don't forget to import em la
 auth
 |- auth.controller.ts => the auth controller file
 
+There will be two function here which are Login and signup.
+To make this function route, we just annotate it with decorator.
+
+Since we are in auth controller, it's usually a good practice to put
+a global prefix route called auth:
+@Controller('auth')
+
+
+> signin
+Method: POST (@Post('signin))
+function: 
+
+> signup
+Method: POST (@Post('signup))
 
 ===================
 Providers/Services
@@ -96,3 +118,16 @@ The Auth Services will be stored in auth folder. Don't forget to import em later
 
 auth
 |- auth.service.ts => the auth Services file
+
+There will be two function here which are Login and signup.
+
+> signin
+signin() function
+
+> signup
+signup() function
+
+================
+Database
+================
+Here we will setup the Postgre Database using docker
