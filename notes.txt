@@ -128,6 +128,46 @@ signin() function
 signup() function
 
 ================
-Database
+Database setup
 ================
-Here we will setup the Postgre Database using docker
+Here we will setup the Postgre Database using docker.
+
+Create the Docker Compose file:
+# DOCKER COMPOSE FOR SETUP POSTGRES
+version: '3.8'
+services:
+  dev-db:
+    image: postgres:13
+    container_name: dev-db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: nest
+    networks:
+      - dev-network
+
+networks:
+  dev-network:
+
+To connect the database, we will use an ORM called Prisma.
+Prisma is a query builder and it's easy to use
+http://prisma.io/
+
+we will need to create another database module than can be used
+by other module
+
+first install Prisma for development:
+yarn add -D prisma
+
+and install the Prisma Client for JavaScript:
+yarn add @prisma/client
+
+so we have the Prisma CLI installed, first we need to init the Prisma:
+npx prisma init
+
+it will generate prisma folder and .env file containing the
+ENV variable to connect to the Database
+
+you can take a look the schema file, it contains the config for your Prisma
