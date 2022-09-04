@@ -44,6 +44,22 @@ After the module generated, it will be auto imported in app module
 bookmark
 |- bookmark.module.ts => bookmark module file
 
+===========================
+How Request is handled
+===========================
+For example the controller received a POST request from the internet asking to login a user.
+Then it's going to call a function from the auth.service then return its response back to the client.
+
+But to do so, auth controller have to instantiate an auth service class (cause in the end it's JS).
+To avoid the instantiate process using new like usual, we use depedency injection. It means instead
+of the controller to declare it.
+
+You just have to write the service name with private(you can see it on the code). That's how we do
+it on nest JS.
+
+example if you want to call the test function inside the service:
+this.authService.test();
+
 ==================
 Controllers
 ==================
@@ -55,7 +71,13 @@ Responsible to handle incoming request and returning responses to client
 
 For creating the logic, it will be separated to Controllers and Providers
 
-1. Login logic
+1. Auth Controllers
+For the first time it's better to learn to create it on your own not by generator.
+The Auth Controllers will be stored in auth folder. Don't forget to import em later
+
+auth
+|- auth.controller.ts => the auth controller file
+
 
 ===================
 Providers/Services
@@ -68,4 +90,9 @@ Responsible for executing the business logic
 
 For creating the logic, it will be separated to Controllers and Providers
 
-1. Login logic
+1. Auth Services
+For the first time it's better to learn to create it on your own not by generator.
+The Auth Services will be stored in auth folder. Don't forget to import em later
+
+auth
+|- auth.service.ts => the auth Services file
