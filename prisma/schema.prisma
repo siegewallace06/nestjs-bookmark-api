@@ -9,3 +9,39 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// User and Bookmark Model
+model User {
+  // id is the primary key
+  id Int @id @default(autoincrement())
+  // Created timestamp
+  createdAt DateTime @default(now())
+  // Updated timestamp
+  updatedAt DateTime @updatedAt
+
+  // User's email
+  email String @unique
+  // hashed password
+  hash String
+
+  // FirstName and LastName (Optional)
+  firstName String?
+  lastName String?
+
+}
+
+model Bookmark {
+  // id is the primary key
+  id Int @id @default(autoincrement())
+    // Created timestamp
+  createdAt DateTime @default(now())
+  // Updated timestamp
+  updatedAt DateTime @updatedAt
+
+  // Bookmark's title
+  title String
+  // Bookmark's Description
+  description String?
+  // Bookmark's URL
+  link String
+}

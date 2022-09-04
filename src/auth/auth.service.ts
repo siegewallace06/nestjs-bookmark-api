@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common";
+import {User, Bookmark} from "@prisma/client";
 
 // For Auth Service it will be annotated with @Injectable() decorator
 // means that it's going to be able to use the dependency injection

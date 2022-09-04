@@ -171,3 +171,72 @@ it will generate prisma folder and .env file containing the
 ENV variable to connect to the Database
 
 you can take a look the schema file, it contains the config for your Prisma
+
+========================
+User and Bookmark Model 
+========================
+For the model we will write it on Prisma Schema file.
+
+Here we will create user and bookmark model
+// User and Bookmark Model
+model User {
+  // id is the primary key
+  id Int @id @default(autoincrement())
+  // Created timestamp
+  createdAt DateTime @default(now())
+  // Updated timestamp
+  updatedAt DateTime @updatedAt
+
+  // User's email
+  email String @unique
+  // hashed password
+  hash String
+
+  // FirstName and LastName (Optional)
+  firstName String?
+  lastName String?
+
+}
+
+model Bookmark {
+  // id is the primary key
+  id Int @id @default(autoincrement())
+    // Created timestamp
+  createdAt DateTime @default(now())
+  // Updated timestamp
+  updatedAt DateTime @updatedAt
+
+  // Bookmark's title
+  title String
+  // Bookmark's Description
+  description String?
+  // Bookmark's URL
+  link String
+}
+
+========================
+Running Prisma Migration
+========================
+
+
+Set the Database URL on .env file with the following format:
+DATABASE_URL="postgresql://postgres:123@localhost:5432/nest?schema=public"
+
+To see all the Prisma command run this:
+npx prisma --help
+
+To run the migration, run this command:
+npx prisma migrate dev --name init
+
+After the migration, you can import the User and Bookmark model from
+the Prisma Client
+import { User, Bookmark } from '@prisma/client'
+
+Now, we can access the database from the browser using Prisma Studio:
+npx prisma studio
+
+Open the browser and go to http://localhost:5555 to visit the Prisma Studio
+
+========================
+Prisma Module
+========================
