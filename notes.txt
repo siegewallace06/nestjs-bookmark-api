@@ -4,6 +4,10 @@ Personal Notes
 Docs:
 https://docs.nestjs.com/
 
+
+To start the project in dev mode run:
+yarn start:dev
+
 ===============
 Modules
 ===============
@@ -12,3 +16,56 @@ https://docs.nestjs.com/modules
 
 Modules organize the and and declared with a class annotated
 by a decorator module.
+
+Modules allow us to break the app into smaller component
+
+1. Auth Module
+For the first time it's better to learn to create it on your own not by generator.
+The Auth Module will be stored in auth folder
+
+auth
+|- auth.module.ts => the auth module file
+
+2. User module
+To generate the module, you can use this command:
+nest g module user
+
+After the module generated, it will be auto imported in app module
+
+user
+|- user.module.ts => user module file
+
+3. Bookmark module
+To generate the module, you can use this command:
+nest g module bookmark
+
+After the module generated, it will be auto imported in app module
+
+bookmark
+|- bookmark.module.ts => bookmark module file
+
+==================
+Controllers
+==================
+
+Docs:
+https://docs.nestjs.com/controllers
+
+Responsible to handle incoming request and returning responses to client
+
+For creating the logic, it will be separated to Controllers and Providers
+
+1. Login logic
+
+===================
+Providers/Services
+===================
+
+Docs:
+https://docs.nestjs.com/providers
+
+Responsible for executing the business logic
+
+For creating the logic, it will be separated to Controllers and Providers
+
+1. Login logic
