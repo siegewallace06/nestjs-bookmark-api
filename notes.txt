@@ -240,3 +240,37 @@ Open the browser and go to http://localhost:5555 to visit the Prisma Studio
 ========================
 Prisma Module
 ========================
+To use the Prisma Client, we need to create a module for it.
+We're going to encapsulate all our logic regarding the database
+in the module and only export from the module
+
+To generate the module, you can use this command:
+nest g module prisma
+
+Generate the Prisma Service:
+nest g service prisma --no-spec
+
+In the service, we will extends the class from PrismaClient
+
+Now we want the auth module to have access to the Prisma Module
+so we need to import it in the auth module
+
+In auth service we can use the depedency injection to use the Prisma Service.
+Don't forget to export the Prisma Service from the Prisma Module.
+
+So for the prisma module to be able to accessed by other module,
+we need to add Global decorator to the module.
+
+Make sure that your Global Module is imported in the AppModule
+
+========================
+Using Auth DTOS
+========================
+Nest JS uses DTOs (Data Transfer Object) to validate the data.
+DTOs is is an object where you push your data from request and run the validation.
+
+We will use the DTOs to validate the request body.
+
+To get the body data we will use a decorator called @Body()
+
+To get the body data type, we will create a folder called dto
