@@ -1,5 +1,6 @@
 import { Body, Controller, Post } from "@nestjs/common";
 import { AuthService } from "./auth.service";
+import { AuthDto } from './dto';
 
 // Decorators to tell Nest that this is a controller
 @Controller('auth')
@@ -12,9 +13,10 @@ export class AuthController {
     }
 
     // signup function
-    @Post("signup")
     // We use body decorator to tell Nest that we want to use the body of the request
-    signup(@Body dto: any) {
+    // We use the DTO interface to tell Nest what the body should look like
+    @Post("signup")
+    signup(@Body() dto: AuthDto) {
         console.log({
             dto,
         });
