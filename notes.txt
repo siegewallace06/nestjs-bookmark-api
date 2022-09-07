@@ -274,3 +274,19 @@ We will use the DTOs to validate the request body.
 To get the body data we will use a decorator called @Body()
 
 To get the body data type, we will create a folder called dto
+and create a file called auth.dto.ts and index.ts
+
+We will use barrel file to export all the DTOs from the index.ts
+
+========================
+Nest JS Pipes
+========================
+Nest JS uses Pipes to validate the data.
+Pipes is is an object where you push your data from request and run the validation.
+
+first we add class validator and class transformer to our project:
+yarn add class-validator class-transformer
+
+after that you add the validation pipe to the auth module.
+But to use it Globally, we must add it to the main.ts:
+app.useGlobalPipes(new ValidationPipe());
