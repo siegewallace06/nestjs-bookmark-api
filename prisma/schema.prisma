@@ -13,7 +13,7 @@ datasource db {
 // User and Bookmark Model
 model User {
   // id is the primary key
-  id Int @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   // Created timestamp
   createdAt DateTime @default(now())
   // Updated timestamp
@@ -22,26 +22,36 @@ model User {
   // User's email
   email String @unique
   // hashed password
-  hash String
+  hash  String
 
   // FirstName and LastName (Optional)
   firstName String?
-  lastName String?
+  lastName  String?
+  // automatically generated the Bookmark by prisma
+  bookmarks  Bookmark[]
 
+  // map to plural  
+  @@map("users")
 }
 
 model Bookmark {
   // id is the primary key
-  id Int @id @default(autoincrement())
-    // Created timestamp
+  id        Int      @id @default(autoincrement())
+  // Created timestamp
   createdAt DateTime @default(now())
   // Updated timestamp
   updatedAt DateTime @updatedAt
 
   // Bookmark's title
-  title String
+  title       String
   // Bookmark's Description
   description String?
   // Bookmark's URL
-  link String
+  link        String
+
+  // relation to User
+  userID Int
+  user   User @relation(fields: [userID], references: [id])
+
+  @@map("bookmarks")
 }

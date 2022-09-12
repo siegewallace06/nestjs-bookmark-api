@@ -288,5 +288,42 @@ first we add class validator and class transformer to our project:
 yarn add class-validator class-transformer
 
 after that you add the validation pipe to the auth module.
-But to use it Globally, we must add it to the main.ts:
-app.useGlobalPipes(new ValidationPipe());
+But to use it Globally, we must add it to the main.ts.
+and also we can setup the whitelist to true to remove the unwanted data.
+app.useGlobalPipes(new ValidationPipe({
+  whiteList: true,
+}));
+
+========================
+signup logic
+========================
+To hash the password, we will use argon2 instead of bcrypt.
+because bycrypt is limited to 72 characters.
+
+first install argon2:
+yarn add argon2
+
+don't forget to import the argon2 module in the auth service
+import * as argon from "argon2";
+
+now request to the endpoint http://localhost:3000/auth/signup
+
+to set the value to unique, we will add it on the schema
+@unique
+
+we will also map it the User into Users and Bookmark into Bookmarks
+@@map("users")
+
+to create the one to many relationship, from user to bookmark
+we will add the userId field on the bookmark model
+  // relation to User
+  userID Int
+  user   User @relation(fields: [userID], references: [id])
+
+run the migration again:
+npx prisma migrate dev
+
+now only unique email can be created, but error return is 500
+
+we will create the forbidden exception to return 403 error.
+we will use try catch to catch the error and throw the forbidden exception

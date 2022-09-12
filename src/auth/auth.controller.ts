@@ -17,10 +17,10 @@ export class AuthController {
     // We use the DTO interface to tell Nest what the body should look like
     @Post("signup")
     signup(@Body() dto: AuthDto) {
-        console.log({
-            dto,
-        });
-        return this.authService.signup();
+        // console.log({
+        //     dto,
+        // });
+        return this.authService.signup(dto);
     }
 
     // signin function
