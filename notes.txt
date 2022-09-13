@@ -341,3 +341,31 @@ here we will build a script to rebuild the container and run the migration
 "db:dev:rm": "docker rm -f -s -v dev-db",
 "db:dev:up": "docker-compose up -d",
 "db:dev:restart": "docker-compose down && docker-compose up -d && npx prisma migrate dev",
+
+========================
+Config Module
+========================
+
+We will use an NPM module called config module to manage the config.
+Until know we hard coded the database env and it will be available in your repository
+
+First we install the config module:
+yarn add @nestjs/config
+
+I encountered an error when I install the module and I found the solution here:
+npm cache clean --force
+
+Config module usually implemented on root module. Under the hood,
+it will read the .env file and put it in the process.env.
+
+When we put on the Prisma Service it will return error because it will be available
+only on app module. so we will expose it to global. We add an object called isGlobal inside
+the config module.
+isGlobal: true,
+
+========================
+JWT Module
+========================
+
+Actually, by only sending the email and password, we can't know which user is logged in.
+So we will create a JWT token to identify the user.
