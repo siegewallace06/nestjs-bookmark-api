@@ -364,8 +364,39 @@ the config module.
 isGlobal: true,
 
 ========================
-JWT Module
+Authenticating User
 ========================
+Docs:
+https://docs.nestjs.com/security/authentication
 
 Actually, by only sending the email and password, we can't know which user is logged in.
 So we will create a JWT token to identify the user.
+
+Under the hood, Nest JS uses Passport JS to handle the authentication.
+
+Docs:
+https://www.passportjs.org/docs/
+
+You can use the passport js to do any kind of authentication. 
+For example, you can use it to authenticate with Google, Facebook, Twitter, etc.
+
+Here we will just use the username and password to authenticate the user.
+
+Decode JWT:
+https://jwt.io/
+
+First we install the passport and passport jwt module:
+yarn add @nestjs/passport passport @nestjs/jwt passport-jwt
+
+Add the typescript module:
+yarn add -D @types/passport-jwt
+
+First we import the @nestjs/jwt module in the auth module.
+Under the hood nestjs jwt uses JSON web token library.
+It is kind of nest js modularization of the library.
+import:
+import { JwtModule } from '@nestjs/jwt';
+
+The return is html page, so we need to return an object.
+
+For @nestjs/passport module, it is a true nest js module that port passport to nest js.

@@ -6,6 +6,8 @@ import { AuthDto } from "./dto";
 import * as argon from "argon2";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 import { ForbiddenException } from "@nestjs/common/exceptions";
+import { JwtService } from "@nestjs/jwt/dist";
+import { ConfigService } from "@nestjs/config";
 
 // For Auth Service it will be annotated with @Injectable() decorator
 // means that it's going to be able to use the dependency injection
@@ -14,7 +16,10 @@ import { ForbiddenException } from "@nestjs/common/exceptions";
 // AuthService Class
 export class AuthService {
     // everytime it's instantiated, call the prisma service
-    constructor(private prisma: PrismaService) { }
+    constructor(
+        private prisma: PrismaService,
+        private jwt: JwtService,
+        private config: ConfigService) { }
     // Test function
     test() {
         console.log("Testing Auth Service");
@@ -44,6 +49,7 @@ export class AuthService {
 
             // return the user
             return user;
+
         }
         catch (err) {
             // if the error is a PrismaClientKnownRequestError
@@ -66,7 +72,7 @@ export class AuthService {
 
     // signin function
     async signin(dto: AuthDto) {
-        
+
         // Find the user by email
         const user = await this.prisma.user.findUnique({
             where: {
@@ -88,8 +94,30 @@ export class AuthService {
         }
 
         // temp solution to delete the hash
-        delete user.hash;
-        return user;
+        // delete user.hash;
+
+        // return the signed token
+        return this.signToken(user.id, user.email);
+    }
+
+    // Function to generate signin token
+    async signToken(userID: number, email: string): Promise<{access_token: string}> {
+        // Payload to be signed
+        const payload = {
+            sub: userID,
+            email,
+        }
+        const secret = this.config.get("JWT_SECRET");
+        const token = await this.jwt.signAsync(payload, {
+            // Token expires in 15 minutes
+            expiresIn: "15m",
+            // secret key, stored in .env file
+            secret: secret,
+        });
+
+        return {
+            access_token: token,
+        };
     }
 
 }
